@@ -190,6 +190,7 @@ func (c *AirportRepo) GetList(req models.GetListAirportRequest) (*models.GetList
 		limit  = " LIMIT 10"
 		query  = `
 				SELECT 
+					COUNT(*) OVER(),
 					"id",
 					"title",
 					"country_id",
@@ -230,6 +231,7 @@ func (c *AirportRepo) GetList(req models.GetListAirportRequest) (*models.GetList
 		var airport models.Airport
 
 		err := rows.Scan(
+			&airports.Count,
 			&Id,
 			&Title,
 			&CountryId,
